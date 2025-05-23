@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Scrapbook</title>
-    <script>
-        function checkPassword() {
-            var password = prompt("Enter the password to view the scrapbook:");
-            if (password === "1809") {
-                document.getElementById("scrapbook").classList.remove("hidden");
-            } else {
-                alert("Incorrect password!");
-                document.body.innerHTML = "<h2>Access Denied</h2>";
-            }
-        }
-    </script>
-    
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>My Scrapbook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body onload="checkPassword()">
-    <div id="scrapbook" class="hidden">
-        <h1>My Digital Scrapbook</h1>
-        <p class="intro">A collection of beautiful memories 🧡</p>
+<body>
 
-        <div class="gallery">
-            <img src="images/photo1.png" alt="Memory 1">
-            <img src="images/photo2.png" alt="Memory 2">
-            <img src="images/photo3.png" alt="Memory 3">
-        </div>
+  <div id="login" class="card">
+    <h2>Welcome to My Scrapbook 💌</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="errorMsg"></p>
+  </div>
+
+  <div id="scrapbook">
+    <div class="photos">
+      <h2 style="text-align:center; color: #d81b60;">My Memories ✨</h2>
+      <img src="images/photo1.png" />
+      <img src="images/photo2.png" />
+      <img src="images/photo3.png" />
     </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value;
+      if (input === "1809") { // Change this!
+        document.getElementById("login").style.display = "none";
+        document.getElementById("scrapbook").style.display = "block";
+        document.body.style.background = "#fff"; // optional reset
+      } else {
+        document.getElementById("errorMsg").innerText = "Incorrect password. Try again.";
+      }
+    }
+  </script>
+
 </body>
-
-
+</html>
