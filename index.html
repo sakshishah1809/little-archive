@@ -1,32 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Scrapbook</title>
-    <script>
-        function checkPassword() {
-            var password = prompt("Enter the password to view the scrapbook:");
-            if (password === "1809") {
-                document.getElementById("scrapbook").classList.remove("hidden");
-            } else {
-                alert("Incorrect password!");
-                document.body.innerHTML = "<h2>Access Denied</h2>";
-            }
-        }
-    </script>
-    
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Scrapbook</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    async function hash(str) {
+      const msgUint8 = new TextEncoder().encode(str);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    async function checkPassword() {
+      const input = prompt("Enter the password to view the scrapbook:");
+      const hashedInput = await hash(input);
+      const realHash = "4fc779c823fd37ed61f66a6ae37c9dffed06bb295f3902d2fa9d485aa741a724"; // 1809
+      if (hashedInput === realHash) {
+        document.getElementById("scrapbook").classList.remove("hidden");
+      } else {
+        alert("Incorrect password!");
+        document.body.innerHTML = "<h2>Access Denied</h2>";
+      }
+    }
+  </script>
 </head>
 <body onload="checkPassword()">
-    <div id="scrapbook" class="hidden">
-        <h1>My Digital Scrapbook</h1>
-        <p class="intro">A collection of beautiful memories 🧡</p>
+  <div id="scrapbook" class="hidden">
+    <h1>My Digital Scrapbook</h1>
+    <p class="intro">A collection of beautiful memories 🧡</p>
 
-        <div class="gallery">
-            <img src="images/photo1.png" alt="Memory 1">
-            <img src="images/photo2.png" alt="Memory 2">
-            <img src="images/photo3.png" alt="Memory 3">
-        </div>
+    <div id="flipbook">
+      <!-- Even number of pages: cover + back cover + content -->
+      <div class="page cover">
+        <h2>Welcome to Our Memories</h2>
+        <p>Made with love 💌</p>
+      </div>
+      <div class="page cover-back">
+        <p>Tap to turn the pages and relive our journey 🥰</p>
+      </div>
+      <div class="page">
+        <img src="images/photo1.png" alt="Page 1" />
+        <p class="caption">The day we first met — pure joy.</p>
+      </div>
+      <div class="page">
+        <img src="images/photo2.png" alt="Page 2" />
+        <p class="caption">Our unforgettable trip to the mountains.</p>
+      </div>
+      <div class="page">
+        <img src="images/photo3.png" alt="Page 3" />
+        <p class="caption">Friends, laughter, and sunshine.</p>
+      </div>
+      <div class="page back">
+        <h3>Thank you for flipping through 💖</h3>
+      </div>
     </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#flipbook").turn({
+        width: window.innerWidth > 768 ? 800 : window.innerWidth * 0.95,
+        height: window.innerWidth > 768 ? 500 : window.innerWidth * 0.65,
+        autoCenter: true,
+        display: 'double',
+        acceleration: true,
+        gradients: true,
+        elevation: 50
+      });
+    });
+  </script>
 </body>
-
-
+</html>
