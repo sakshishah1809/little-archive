@@ -56,7 +56,7 @@ body {
 .back-content {
     width: 100%;
     height: 100%;
-    padding: 15px; /* Adds space inside each page */
+    padding: 0px; /* Adds space inside each page */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,22 +103,52 @@ i {
 #p5 { z-index: 2; }
 #p6 { z-index: 1; }
 
-.book-spine {
+/* .book-spine {
     position: absolute;
     top: 3%;
-    left: -5px; /* adjust position to align thinner spine */
-    width: 8px; /* thinner spine */
+    left: -5px; 
+    width: 8px; 
     height: 94.1%;
     background-color: #7d5441;
     transform: skewY(-5deg);
     box-shadow: inset -1px 0 4px rgba(0, 0, 0, 0.2);
-    z-index: 0; /* keep it behind the pages */
+    z-index: 0; 
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-}
+} */
 
 .hidden {
   display: none;
+}
+
+@media screen and (max-width: 940px) and (max-height: 450px) and (orientation: landscape) {
+    .book {
+        width: 90vw;
+        height: 90vh;
+        transform: none !important;
+    }
+
+    .page-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain;
+    }
+
+    .btn {
+        margin: 10px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+    }
+
+    #prev-btn {
+        left: 5px;
+    }
+
+    #next-btn {
+        right: 5px;
+    }
 }
 
 
