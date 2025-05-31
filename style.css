@@ -45,6 +45,7 @@ body {
   transition: transform 0.5s ease;
 }
 
+
 .front {
   z-index: 1;
   backface-visibility: hidden;
@@ -60,6 +61,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative; /* ADD THIS LINE */
+}
+
+.front-content {
+  position: relative;
+  z-index: 1; 
 }
 
 .back-content {
@@ -87,7 +94,7 @@ body {
 
 .btn {
   position: absolute;
-  bottom: 15px;
+  bottom: 20px;
   font-size: 16px;
   padding: 8px 16px;
   background-color: rgba(255, 255, 255, 0.8);
@@ -116,6 +123,29 @@ body {
   outline: none;
 }
 
+#play-btn {
+  z-index: 9999; /* above all */
+}
+
+/* 🔊 Audio Button Style (default for desktop) */
+#play-btn {
+  position: absolute;
+  top: 215px;
+  left: 161px;
+  transform: rotate(-10deg);
+  border: none;
+  cursor: pointer;
+  z-index: 9999;
+  padding: 0px;
+  background: none;
+}
+
+#audio-icon {
+  width: 44px;
+  height: 44px;
+}
+
+
 /* 📱 Landscape mode on phones */
 @media screen and (max-width: 940px) and (max-height: 500px) and (orientation: landscape) {
   .book {
@@ -140,6 +170,18 @@ body {
     border-radius: 8px;
     z-index: 10;
     
+  }
+
+    #play-btn {
+    top: 160.5px;         /* reposition vertically for mobile */
+    left: 99.5px;        /* reposition horizontally for mobile */
+    transform: rotate(-10deg);
+    padding: 4px;
+  }
+
+  #audio-icon {
+    width: 29px;
+    height: 29px;
   }
 
   #prev-btn {
