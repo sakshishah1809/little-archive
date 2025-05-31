@@ -37,6 +37,7 @@ function closeBook(isAtBeginning) {
 }
 
 function goNextPage() {
+    stopAudioOnPageFlip();
     if (currentLocation < maxLocation) {
         switch (currentLocation) {
             case 1:
@@ -75,6 +76,13 @@ function goNextPage() {
 }
 
 function goPrevPage() {
+    stopAudioOnPageFlip();
+        // Stop audio and reset icon
+    audio.pause();
+    audio.currentTime = 0;
+    icon.src = "images/play.png";
+    icon.alt = "Play Button";
+    isPlaying = false;
     if (currentLocation > 1) {
         switch (currentLocation) {
             case 2:
@@ -160,3 +168,55 @@ function resetBookToEnd() {
     currentLocation = maxLocation;
 }
     
+let isPlaying = false;
+let audioPosition = 0;
+const audio = document.getElementById("kahani-audio");
+const icon = document.getElementById("audio-icon");
+
+
+function toggleAudio() {
+    if (!audio || !icon) return;
+
+    if (isPlaying) {
+        audio.pause();
+        audioPosition = audio.currentTime;
+        icon.src = "images/play.png";
+        icon.alt = "Play Button";
+        isPlaying = false;
+    } else {
+        audio.currentTime = audioPosition;
+        audio.play();
+        icon.src = "images/pause.png";
+        icon.alt = "Pause Button";
+        isPlaying = true;
+    }
+}
+
+audio.addEventListener("ended", () => {
+    if (isPlaying) {
+        audio.currentTime = 0;
+        audio.play();
+    } else {
+        icon.src = "images/play.png";
+        icon.alt = "Play Button";
+    }
+});
+
+
+// Loop audio until manually paused
+audio.addEventListener("ended", () => {
+    if (isPlaying) {
+        audio.currentTime = 0;
+        audio.play();
+    }
+});
+
+function stopAudioOnPageFlip() {
+    if (isPlaying) {
+        audio.pause();
+        audioPosition = audio.currentTime;
+        icon.classList.remove("fa-pause-circle");
+        icon.classList.add("fa-play-circle");
+        isPlaying = false;
+    }
+}
