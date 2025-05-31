@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Mihir&Sakshi</title>
+    <title>Scrapbook</title>
     <link rel="stylesheet" href="./style.css" />
     <script src="./main.js" defer></script>
     <script src="https://kit.fontawesome.com/b0f29e9bfe.js" crossorigin="anonymous"></script>
+    
 </head>
 <body>
 
@@ -92,7 +93,15 @@
         <div class="front">
             <div class="front-content">
                 <img src="images/Page2.png" alt="Page 2" class="page-img" style="width: 100%; height: 100%; object-fit: contain;" />
+<button 
+  id="play-btn" 
+  onclick="toggleAudio()">
+<img id="audio-icon" src="images/play.png" alt="Play Button" />
+</button>
+
             </div>
+            <!-- Hidden Audio -->
+<audio id="kahani-audio" src="audio/Kahani.mp3"></audio>
         </div>
         <div class="back">
             <div class="back-content">
